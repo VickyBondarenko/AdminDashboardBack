@@ -18,7 +18,7 @@ router.post(
   customersControllers.addCustomer
 );
 
-router.get("/", authentificate, customersControllers.getCustomers);
+router.get("/", customersControllers.getCustomers);
 
 router.put(
   "/:customerId",
