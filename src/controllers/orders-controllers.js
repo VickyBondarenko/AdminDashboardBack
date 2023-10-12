@@ -1,7 +1,6 @@
 const { Order } = require("../models/order");
 const { ctrlWrapper } = require("../utils");
 const { HttpError } = require("../helpers");
-const { cloudinary } = require("../utils");
 
 const searchOrders = async (req, res) => {
   const { name, page = 1, limit = 5 } = req.query;

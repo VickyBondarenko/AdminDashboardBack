@@ -2,23 +2,22 @@ const { ObjectId } = require("mongodb");
 const { Customer } = require("../models/customer");
 const { ctrlWrapper } = require("../utils");
 const { HttpError } = require("../helpers");
-const { cloudinary } = require("../utils");
 
 const addCustomer = async (req, res) => {
   const { email, name, spent } = req.body;
 
   let image = "";
 
-  if (req.file) {
-    const imageUrl = cloudinary.url(req.file.filename);
-    image = imageUrl;
-  }
+  // if (req.file) {
+  //   const imageUrl = cloudinary.url(req.file.filename);
+  //   image = imageUrl;
+  // }
 
   const { _id } = await Customer.create({
     email,
     name,
     spent,
-    image,
+    // image,
   });
 
   res.status(201).json({
