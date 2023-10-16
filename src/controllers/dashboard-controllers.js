@@ -30,9 +30,7 @@ const getDashboardInfo = async (req, res) => {
   ]);
 
   const data = {
-    allCustomers,
-    allProducts,
-    allSuppliers,
+    statistic: { allCustomers, allProducts, allSuppliers },
     recentCustomers: customersData,
     recentOperations: operationData,
   };
