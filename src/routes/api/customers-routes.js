@@ -20,6 +20,8 @@ router.post(
 
 router.get("/", authentificate, customersControllers.getCustomers);
 
+router.post("/filter", authentificate, customersControllers.searchCustomers);
+
 router.put(
   "/:customerId",
   authentificate,

@@ -5,11 +5,6 @@ const dashboardController = require("../../controllers/dashboard-controllers");
 
 const { authentificate } = require("../../middleWares");
 
-router.get(
-  "/",
-  authentificate,
-
-  dashboardController.getDashboardInfo
-);
+router.get("/", authentificate, dashboardController.getDashboardInfo);
 
 module.exports = router;

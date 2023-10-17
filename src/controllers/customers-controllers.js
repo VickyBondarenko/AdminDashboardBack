@@ -34,6 +34,52 @@ const getCustomers = async (req, res) => {
   res.status(200).json(result);
 };
 
+const searchCustomers = async (req, res) => {
+  const { name, page = 1, limit = 5 } = req.query;
+
+  let searchQuery = "";
+
+  const skip = (page - 1) * limit;
+  if (page < 1 || limit < 1) {
+    throw HttpError(400, "Invalid page or limit value");
+  }
+
+  const regex = /[.*+?^${}()|[\]#\\]/g;
+  if (regex.test(name)) {
+    throw HttpError(400);
+  }
+
+  if (name) {
+    searchQuery = { name: { $regex: new RegExp(name, "i") } };
+  }
+
+  const allData = await Customer.aggregate([
+    {
+      $match: searchQuery,
+    },
+  ]);
+
+  const totalPages = Math.ceil(allData.length / limit);
+
+  const data = await Customer.aggregate([
+    {
+      $match: searchQuery,
+    },
+    {
+      $skip: Number(skip),
+    },
+    {
+      $limit: Number(limit),
+    },
+  ]);
+
+  if (data.length === 0) {
+    throw HttpError(404);
+  }
+
+  res.status(200).json({ totalPages, data });
+};
+
 const deleteCustomer = async (req, res) => {
   const deletedCustomer = await Customer.findByIdAndRemove(
     req.params.customerId
@@ -79,4 +125,5 @@ module.exports = {
   getCustomers: ctrlWrapper(getCustomers),
   deleteCustomer: ctrlWrapper(deleteCustomer),
   updateCustomerById: ctrlWrapper(updateCustomerById),
+  searchCustomers: ctrlWrapper(searchCustomers),
 };
