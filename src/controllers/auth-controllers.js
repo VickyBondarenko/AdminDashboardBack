@@ -23,25 +23,6 @@ const { SECRET_KEY } = process.env;
 //     avatarURL,
 //   });
 
-//   const currentUser = await User.findOne({ email });
-//   const { _id: id } = currentUser;
-//   const payload = {
-//     id: currentUser._id,
-//   };
-
-//   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "48h" });
-//   await User.findByIdAndUpdate(id, { token });
-//   res.status(201).json({
-//     token,
-//     user: {
-//       _id: currentUser._id,
-//       name: currentUser.name,
-//       email: currentUser.email,
-//       avatarURL: currentUser.avatarURL,
-//     },
-//   });
-// };
-
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
