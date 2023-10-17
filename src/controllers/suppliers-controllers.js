@@ -30,6 +30,52 @@ const getSuppliers = async (req, res) => {
   res.status(200).json(result);
 };
 
+const searchSuppliers = async (req, res) => {
+  const { name, page = 1, limit = 5 } = req.query;
+
+  let searchQuery = "";
+
+  const skip = (page - 1) * limit;
+  if (page < 1 || limit < 1) {
+    throw HttpError(400, "Invalid page or limit value");
+  }
+
+  const regex = /[.*+?^${}()|[\]#\\]/g;
+  if (regex.test(name)) {
+    throw HttpError(400);
+  }
+
+  if (name) {
+    searchQuery = { name: { $regex: new RegExp(name, "i") } };
+  }
+
+  const allData = await Supplier.aggregate([
+    {
+      $match: searchQuery,
+    },
+  ]);
+
+  const totalPages = Math.ceil(allData.length / limit);
+
+  const data = await Supplier.aggregate([
+    {
+      $match: searchQuery,
+    },
+    {
+      $skip: Number(skip),
+    },
+    {
+      $limit: Number(limit),
+    },
+  ]);
+
+  if (data.length === 0) {
+    throw HttpError(404);
+  }
+
+  res.status(200).json({ totalPages, data });
+};
+
 const editSupplierById = async (req, res) => {
   const { name, address, suppliers, date, amount, status } = req.body;
 
@@ -57,4 +103,5 @@ module.exports = {
   addSuppliers: ctrlWrapper(addSuppliers),
   getSuppliers: ctrlWrapper(getSuppliers),
   editSupplierById: ctrlWrapper(editSupplierById),
+  searchSuppliers: ctrlWrapper(searchSuppliers),
 };

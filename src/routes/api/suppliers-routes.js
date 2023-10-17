@@ -19,6 +19,8 @@ router.post(
 
 router.get("/", authentificate, suppliersControllers.getSuppliers);
 
+router.post("/filter", authentificate, suppliersControllers.searchSuppliers);
+
 router.put(
   "/:supplierId",
   authentificate,
