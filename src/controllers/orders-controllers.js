@@ -41,16 +41,36 @@ const searchOrders = async (req, res) => {
     },
   ]);
 
-  if (data.length === 0) {
-    throw HttpError(404);
-  }
+  // if (data.length === 0) {
+  //   throw HttpError(404);
+  // }
 
   res.status(200).json({ totalPages, data });
 };
 
+// const getOrders = async (req, res) => {
+//   const result = await Order.find();
+//   res.status(200).json(result);
+// };
+
 const getOrders = async (req, res) => {
+  const { page = 1, limit = 5 } = req.query;
+  const skip = (page - 1) * limit;
+  if (page < 1 || limit < 1) {
+    throw HttpError(400, "Invalid page or limit value");
+  }
   const result = await Order.find();
-  res.status(200).json(result);
+  const totalPages = Math.ceil(result.length / limit);
+
+  const data = await Order.aggregate([
+    {
+      $skip: Number(skip),
+    },
+    {
+      $limit: Number(limit),
+    },
+  ]);
+  res.status(200).json({ totalPages, data });
 };
 
 const editOrderById = async (req, res) => {
