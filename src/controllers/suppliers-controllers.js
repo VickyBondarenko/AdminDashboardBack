@@ -95,7 +95,7 @@ const searchSuppliers = async (req, res) => {
 const editSupplierById = async (req, res) => {
   const { name, address, suppliers, date, amount, status } = req.body;
 
-  if (!name && !address && !suppliers && !date && !amount && !status) {
+  if (!name || !address || !suppliers || !date || !amount || !status) {
     throw HttpError(400, "Provide all necessary fields");
   }
 
