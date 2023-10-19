@@ -30,8 +30,23 @@ const addCustomer = async (req, res) => {
 };
 
 const getCustomers = async (req, res) => {
+  const { page = 1, limit = 5 } = req.query;
+  const skip = (page - 1) * limit;
+  if (page < 1 || limit < 1) {
+    throw HttpError(400, "Invalid page or limit value");
+  }
   const result = await Customer.find();
-  res.status(200).json(result);
+  const totalPages = Math.ceil(result.length / limit);
+
+  const data = await Customer.aggregate([
+    {
+      $skip: Number(skip),
+    },
+    {
+      $limit: Number(limit),
+    },
+  ]);
+  res.status(200).json({ totalPages, data });
 };
 
 const searchCustomers = async (req, res) => {
