@@ -29,4 +29,10 @@ router.put(
   productsControllers.editProductById
 );
 
+router.delete(
+  "/:productId",
+  authentificate,
+  productsControllers.deleteProductById
+);
+
 module.exports = router;

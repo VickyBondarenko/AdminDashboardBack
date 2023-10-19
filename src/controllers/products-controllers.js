@@ -116,9 +116,22 @@ const editProductById = async (req, res) => {
   });
 };
 
+const deleteProductById = async (req, res) => {
+  const deletedProduct = await Product.findByIdAndRemove(req.params.productId);
+
+  if (!deletedProduct) {
+    throw HttpError(
+      404,
+      `Product with id "${req.params.customerId}" is missing`
+    );
+  }
+  res.status(204).send();
+};
+
 module.exports = {
   addProducts: ctrlWrapper(addProducts),
   getProducts: ctrlWrapper(getProducts),
   searchProducts: ctrlWrapper(searchProducts),
   editProductById: ctrlWrapper(editProductById),
+  deleteProductById: ctrlWrapper(deleteProductById),
 };
