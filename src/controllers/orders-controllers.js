@@ -46,17 +46,8 @@ const searchOrders = async (req, res) => {
     },
   ]);
 
-  // if (data.length === 0) {
-  //   throw HttpError(404);
-  // }
-
   res.status(200).json({ totalPages, data });
 };
-
-// const getOrders = async (req, res) => {
-//   const result = await Order.find();
-//   res.status(200).json(result);
-// };
 
 const getOrders = async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
@@ -98,7 +89,7 @@ const editOrderById = async (req, res) => {
     status,
   };
 
-  await Order.findByIdAndUpdate(req.params.orderId, data);
+  await Order.findByIdAndUpdate(req.params.id, data);
 
   res.json({
     data,

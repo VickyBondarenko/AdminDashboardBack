@@ -119,7 +119,7 @@ const editProductById = async (req, res) => {
     category,
   };
 
-  await Product.findByIdAndUpdate(req.params.productId, data);
+  await Product.findByIdAndUpdate(req.params.id, data);
 
   res.json({
     data,
@@ -127,7 +127,7 @@ const editProductById = async (req, res) => {
 };
 
 const deleteProductById = async (req, res) => {
-  const deletedProduct = await Product.findByIdAndRemove(req.params.productId);
+  const deletedProduct = await Product.findByIdAndRemove(req.params.id);
 
   if (!deletedProduct) {
     throw HttpError(

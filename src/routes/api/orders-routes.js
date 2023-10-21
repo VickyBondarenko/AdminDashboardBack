@@ -6,18 +6,13 @@ const ordersControllers = require("../../controllers/orders-controllers");
 const {
   authentificate,
 
-  //   isValidId,
+  isValidId,
 } = require("../../middleWares");
 
 router.post("/filter", authentificate, ordersControllers.searchOrders);
 
 router.get("/", authentificate, ordersControllers.getOrders);
 
-router.put(
-  "/:orderId",
-  authentificate,
-  // isValidId,
-  ordersControllers.editOrderById
-);
+router.put("/:id", authentificate, isValidId, ordersControllers.editOrderById);
 
 module.exports = router;

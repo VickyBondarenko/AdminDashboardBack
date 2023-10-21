@@ -6,7 +6,7 @@ const customerController = require("../../controllers/customer-controller");
 const { authentificate, isValidId } = require("../../middleWares");
 
 router.get(
-  "/:customerId",
+  "/:id",
   authentificate,
   isValidId,
   customerController.getOneCustomer

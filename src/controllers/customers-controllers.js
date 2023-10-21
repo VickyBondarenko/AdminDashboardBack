@@ -96,39 +96,22 @@ const searchCustomers = async (req, res) => {
 };
 
 const deleteCustomer = async (req, res) => {
-  const deletedCustomer = await Customer.findByIdAndRemove(
-    req.params.customerId
-  );
+  const deletedCustomer = await Customer.findByIdAndRemove(req.params.id);
 
   if (!deletedCustomer) {
-    throw HttpError(
-      404,
-      `Recipe with id "${req.params.customerId}" is missing`
-    );
+    throw HttpError(404, `Recipe with id "${req.params.id}" is missing`);
   }
   res.status(204).send();
 };
 
 const updateCustomerById = async (req, res) => {
   const { name } = req.body;
-  // const { name, image } = await Customer.findById(req.params.customerId);
-
-  // if (!name && !req.file) {
-  //   throw HttpError(400, "Provide all necessary fields");
-  // }
-
-  // let imageUrl;
-
-  // if (req.file) {
-  //   imageUrl = cloudinary.url(req.file.filename);
-  // }
 
   const data = {
     name: name,
-    // image: imageUrl,
   };
 
-  await Customer.findByIdAndUpdate(req.params.customerId, data);
+  await Customer.findByIdAndUpdate(req.params.id, data);
 
   res.json({
     data,

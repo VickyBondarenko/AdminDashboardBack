@@ -5,10 +5,7 @@ const { validateBody } = require("../../utils");
 
 const suppliersControllers = require("../../controllers/suppliers-controllers");
 
-const {
-  authentificate,
-  //   isValidId,
-} = require("../../middleWares");
+const { authentificate, isValidId } = require("../../middleWares");
 
 router.post(
   "/",
@@ -22,9 +19,9 @@ router.get("/", authentificate, suppliersControllers.getSuppliers);
 router.post("/filter", authentificate, suppliersControllers.searchSuppliers);
 
 router.put(
-  "/:supplierId",
+  "/:id",
   authentificate,
-  // isValidId,
+  isValidId,
   suppliersControllers.editSupplierById
 );
 

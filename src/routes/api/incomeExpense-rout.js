@@ -6,9 +6,9 @@ const incomeExpensController = require("../../controllers/incomeExpenses-control
 const { authentificate, isValidId } = require("../../middleWares");
 
 router.get(
-  "/:operationId",
+  "/:id",
   authentificate,
-  //   isValidId,
+  isValidId,
   incomeExpensController.getOneOperation
 );
 

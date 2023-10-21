@@ -95,10 +95,6 @@ const searchSuppliers = async (req, res) => {
     },
   ]);
 
-  // if (data.length === 0) {
-  //   throw HttpError(404);
-  // }
-
   res.status(200).json({ totalPages, data });
 };
 
@@ -118,7 +114,7 @@ const editSupplierById = async (req, res) => {
     status,
   };
 
-  await Supplier.findByIdAndUpdate(req.params.supplierId, data);
+  await Supplier.findByIdAndUpdate(req.params.id, data);
 
   res.json({
     data,

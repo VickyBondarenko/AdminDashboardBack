@@ -2,7 +2,7 @@ const { Customer } = require("../models/customer");
 const { ctrlWrapper } = require("../utils");
 
 const getOneCustomer = async (req, res) => {
-  const data = await Customer.findById(req.params.customerId);
+  const data = await Customer.findById(req.params.id);
 
   res.json({
     data,

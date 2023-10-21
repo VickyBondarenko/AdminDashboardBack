@@ -23,14 +23,14 @@ router.get("/", authentificate, customersControllers.getCustomers);
 router.post("/filter", authentificate, customersControllers.searchCustomers);
 
 router.put(
-  "/:customerId",
+  "/:id",
   authentificate,
   isValidId,
   customersControllers.updateCustomerById
 );
 
 router.delete(
-  "/:customerId",
+  "/:id",
   authentificate,
   isValidId,
   customersControllers.deleteCustomer
