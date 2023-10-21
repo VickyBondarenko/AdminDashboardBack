@@ -38,6 +38,11 @@ const getProducts = async (req, res) => {
   const totalPages = Math.ceil(result.length / limit);
   const data = await Product.aggregate([
     {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
       $skip: Number(skip),
     },
     {
@@ -76,6 +81,11 @@ const searchProducts = async (req, res) => {
   const totalPages = Math.ceil(allData.length / limit);
 
   const data = await Product.aggregate([
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
     {
       $match: searchQuery,
     },

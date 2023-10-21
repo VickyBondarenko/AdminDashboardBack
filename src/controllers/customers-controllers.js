@@ -8,16 +8,10 @@ const addCustomer = async (req, res) => {
 
   let image = "";
 
-  // if (req.file) {
-  //   const imageUrl = cloudinary.url(req.file.filename);
-  //   image = imageUrl;
-  // }
-
   const { _id } = await Customer.create({
     email,
     name,
     spent,
-    // image,
   });
 
   res.status(201).json({
@@ -39,6 +33,11 @@ const getCustomers = async (req, res) => {
   const totalPages = Math.ceil(result.length / limit);
 
   const data = await Customer.aggregate([
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
     {
       $skip: Number(skip),
     },
@@ -78,6 +77,11 @@ const searchCustomers = async (req, res) => {
 
   const data = await Customer.aggregate([
     {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
       $match: searchQuery,
     },
     {
@@ -87,10 +91,6 @@ const searchCustomers = async (req, res) => {
       $limit: Number(limit),
     },
   ]);
-
-  if (data.length === 0) {
-    throw HttpError(404);
-  }
 
   res.status(200).json({ totalPages, data });
 };

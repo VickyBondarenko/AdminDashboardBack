@@ -36,6 +36,11 @@ const getSuppliers = async (req, res) => {
 
   const data = await Supplier.aggregate([
     {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
       $skip: Number(skip),
     },
     {
@@ -74,6 +79,11 @@ const searchSuppliers = async (req, res) => {
   const totalPages = Math.ceil(allData.length / limit);
 
   const data = await Supplier.aggregate([
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
     {
       $match: searchQuery,
     },

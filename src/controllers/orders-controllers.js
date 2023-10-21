@@ -34,6 +34,11 @@ const searchOrders = async (req, res) => {
       $match: searchQuery,
     },
     {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
       $skip: Number(skip),
     },
     {
@@ -63,6 +68,11 @@ const getOrders = async (req, res) => {
   const totalPages = Math.ceil(result.length / limit);
 
   const data = await Order.aggregate([
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
     {
       $skip: Number(skip),
     },
