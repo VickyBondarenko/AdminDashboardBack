@@ -97,10 +97,6 @@ const searchProducts = async (req, res) => {
     },
   ]);
 
-  // if (data.length === 0) {
-  //   throw HttpError(404);
-  // }
-
   res.status(200).json({ totalPages, data });
 };
 

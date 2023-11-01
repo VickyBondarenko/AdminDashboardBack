@@ -3,7 +3,6 @@ const { ctrlWrapper } = require("../utils");
 
 const getOneOperation = async (req, res) => {
   const data = await IncomeExpens.findById(req.params.operationId);
-
   res.json({
     data,
   });

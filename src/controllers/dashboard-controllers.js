@@ -14,7 +14,6 @@ const getDashboardInfo = async (req, res) => {
   ]);
 
   const productsData = await Product.find();
-
   const suppliersData = await Supplier.find();
 
   const allCustomers = customersData.length;

@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongodb");
 const { Customer } = require("../models/customer");
 const { ctrlWrapper } = require("../utils");
 const { HttpError } = require("../helpers");

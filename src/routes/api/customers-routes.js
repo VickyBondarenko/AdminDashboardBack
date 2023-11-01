@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
+
 const { schemas } = require("../../models/customer");
 const { validateBody } = require("../../utils");
-
 const customersControllers = require("../../controllers/customers-controllers");
-
-const {
-  authentificate,
-
-  isValidId,
-} = require("../../middleWares");
+const { authentificate, isValidId } = require("../../middleWares");
 
 router.post(
   "/",

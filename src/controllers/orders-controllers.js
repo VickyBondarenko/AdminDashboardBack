@@ -77,9 +77,9 @@ const getOrders = async (req, res) => {
 const editOrderById = async (req, res) => {
   const { name, address, products, price, status } = req.body;
 
-  // if (!name && !address && !products && !price && !status ) {
-  //   throw HttpError(400, "Provide all necessary fields");
-  // }
+  if (!name || !address || !products || !price || !status) {
+    throw HttpError(400, "Provide all necessary fields");
+  }
 
   const data = {
     name,

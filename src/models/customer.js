@@ -8,11 +8,6 @@ const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.]+(\.[a-zA-Z]+){1,2}$/;
 
 const customerSchema = new Schema(
   {
-    // id: {
-    //   type: Schema.Types.ObjectId,
-    //   // ref: "ingridients",
-    //   required: true,
-    // },
     email: {
       type: String,
       trim: true,
