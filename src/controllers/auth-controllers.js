@@ -56,6 +56,9 @@ const login = async (req, res) => {
 
 const getCurrent = async (req, res) => {
   const { name, email } = req.user;
+  if (!name || !email) {
+    throw HttpError(401);
+  }
 
   res.json({
     user: {
